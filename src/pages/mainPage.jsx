@@ -1,20 +1,31 @@
-import React, {  useRef, useState} from 'react'
-import {   Animated, StyleSheet, View, NativeModules, Text } from 'react-native'
-import { HeaderComponent } from '../components/headerComponent'
-import { BodyComponent } from '../components/bodyComponent'
-import { TodoComponent } from '../components/todoComponent'
-import { UserComponent } from '../components/userComponent'
+import React, {useEffect, useRef, useState} from 'react';
+import {
+  Animated,
+  StyleSheet,
+  View,
+  NativeModules,
+  Text,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
+import {HeaderComponent} from '../components/headerComponent';
+import {BodyComponent} from '../components/bodyComponent';
+import {TodoComponent} from '../components/todoComponent';
+import {UserComponent} from '../components/userComponent';
 
-export const MainPage  = () => {
-
-  const [height,setHeight] = useState(50)
+export const MainPage = () => {
+  const [height, setHeight] = useState(50);
+  const [buttonT, setButtonT] = useState(false);
+  const [showButton, setShowButton] = useState(true);
 
   const translateY = useRef(new Animated.Value(0)).current;
-  const translateX = useRef(new Animated.Value(410)).current;
-  const translateXTitle = useRef(new Animated.Value(410)).current;
-  const translateXHour = useRef(new Animated.Value(400)).current;
+  const translateX = useRef(new Animated.Value(450)).current;
+  const translateXTitle = useRef(new Animated.Value(450)).current;
+  const translateXHour = useRef(new Animated.Value(450)).current;
 
   const moveDown = () => {
+    setButtonT(true);
     // translateX.setOffset(100);
     Animated.parallel([
       Animated.timing(translateY, {
@@ -41,31 +52,44 @@ export const MainPage  = () => {
         delay: 1000,
       }).start(),
     ]);
+  };
 
-  }
-
-   const anims = {
-     translateY,
-     translateX,
-     translateXTitle,
-     height,
-     moveDown,
-     setHeight,
-     translateXHour
-   };
-
+  const anims = {
+    translateY,
+    translateX,
+    translateXTitle,
+    height,
+    moveDown,
+    setHeight,
+    translateXHour,
+    buttonT,
+    setButtonT,
+    showButton,
+    setShowButton,
+  };
+  const [open, setOpen] = useState(false);
+  const [date, setDate] = useState(new Date());
+  useEffect(() => {
+    setOpen(true);
+  }, []);
 
   return (
-    <View style={styles.Main}>
-      <UserComponent />
-      <View style={styles.titleContainer}>
-        <Text style={styles.Title}>TO DO LIST</Text>
-      </View>
-      <TodoComponent anims={anims} />
-      <BodyComponent anims={anims} />
-    </View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.titleContainer}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={styles.Main}>
+        <View style={styles.Main}>
+          <UserComponent />
+          <View style={styles.titleContainer}>
+            <Text style={styles.Title}>TO DO LIST</Text>
+          </View>
+          <TodoComponent anims={anims} />
+          <BodyComponent anims={anims} />
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   Main: {
@@ -73,14 +97,14 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     display: 'flex',
-    overflow: 'visible'
+    overflow: 'visible',
   },
   Title: {
     color: 'white',
     fontFamily: 'ShadowsIntoLight-Regular',
     textAlign: 'center',
     height: 120,
-    width: 300,
+    width: '100%',
     // backgroundColor: 'red',
     fontSize: 65,
     margin: 0,

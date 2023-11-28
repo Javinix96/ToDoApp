@@ -1,7 +1,26 @@
-import React from 'react'
-import { Animated, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, {useState} from 'react';
+import {
+  Animated,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import DatePicker from 'react-native-date-picker';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export const DateComponent = ({translateXHour, translateX, translateXT}) => {
+  const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState(new Date());
+
+  const updateDate = () => {
+    setDate(new Date());
+  };
+
+  const updateTime = () => {
+    setTime(new Date());
+  };
 
   return (
     <View style={todoStyles.todoCon}>
@@ -21,14 +40,14 @@ export const DateComponent = ({translateXHour, translateX, translateXT}) => {
           placeholder="thu, october 11, 2021"
           numberOfLines={1}
           placeholderTextColor={'white'}
+          value={date.toDateString()}
           //   value={text}
           //   onChangeText={val => setText(val)}
         />
-        <TouchableOpacity style={todoStyles.button}>
-          <Text style={todoStyles.textBuitton}>+</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={todoStyles.button}>
-          <Text style={todoStyles.textBuitton}>+</Text>
+        <TouchableOpacity style={todoStyles.button} onPress={updateDate}>
+          <Text style={todoStyles.textBuitton}>
+            <Icon name="refresh-circle" size={44} color="white" />
+          </Text>
         </TouchableOpacity>
       </Animated.View>
 
@@ -44,14 +63,14 @@ export const DateComponent = ({translateXHour, translateX, translateXT}) => {
           placeholder="12:00 PM"
           numberOfLines={1}
           placeholderTextColor={'white'}
+          value={time.toLocaleTimeString().substring(0, 4)}
           //   value={text}
           //   onChangeText={val => setText(val)}
         />
-        <TouchableOpacity style={todoStyles.button}>
-          <Text style={todoStyles.textBuitton}>+</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={todoStyles.button}>
-          <Text style={todoStyles.textBuitton}>+</Text>
+        <TouchableOpacity style={todoStyles.button} onPress={updateTime}>
+          <Text style={todoStyles.textBuitton}>
+            <Icon name="refresh-circle" size={44} color="white" />
+          </Text>
         </TouchableOpacity>
       </Animated.View>
     </View>
@@ -62,7 +81,7 @@ const todoStyles = StyleSheet.create({
   todoCon: {
     // backgroundColor: 'yellow',
     width: '100%',
-    height: 150,
+    height: 185,
     zIndex: -1,
     // justifyContent: '',
     alignItems: 'center',
@@ -91,18 +110,19 @@ const todoStyles = StyleSheet.create({
     margin: 0,
     fontSize: 16,
     textDecorationLine: 'none',
-    color: 'white'
-    
+    color: 'white',
+
     // backgroundColor: 'red'
   },
   button: {
-    backgroundColor: 'white',
-    width: 30,
-    height: 30,
+    // backgroundColor: 'white',
+    // width: 30,
+    // height: 30,
     borderRadius: 22,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 0,
+    marginTop: 10,
   },
   textBuitton: {
     textAlign: 'center',

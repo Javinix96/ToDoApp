@@ -1,13 +1,26 @@
-import React, { useState } from 'react'
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { ButttonMoreComponent } from './ButtonMoreComponent';
-import { DateComponent } from './DateComponent';
+import React, {useState} from 'react';
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {ButttonMoreComponent} from './ButtonMoreComponent';
+import {DateComponent} from './DateComponent';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export const TodoComponent = ({anims}) => {
-
-  const [text,setText] = useState('');
-  const [showButton,setShowButton] = useState(true);
-  const {height, moveDown, translateXHour, translateX, translateXTitle} = anims;
+  const [text, setText] = useState('');
+  const {
+    height,
+    moveDown,
+    translateXHour,
+    translateX,
+    translateXTitle,
+    showButton,
+    setShowButton,
+  } = anims;
 
   return (
     <View style={{...todoStyles.todoCon, height: height}}>
@@ -20,8 +33,11 @@ export const TodoComponent = ({anims}) => {
           value={text}
           onChangeText={val => setText(val)}
         />
+
         <TouchableOpacity style={todoStyles.button}>
-          <Text style={todoStyles.textBuitton}>+</Text>
+          <Text style={todoStyles.textButton}>
+            <Icon name="add-circle" color="white" size={42} />
+          </Text>
         </TouchableOpacity>
       </View>
       {/* View para boton o date */}
@@ -37,7 +53,7 @@ export const TodoComponent = ({anims}) => {
       {/* <DateComponent /> */}
     </View>
   );
-}
+};
 
 const todoStyles = StyleSheet.create({
   todoCon: {
@@ -73,22 +89,22 @@ const todoStyles = StyleSheet.create({
     // backgroundColor: 'orange'
   },
   button: {
-    backgroundColor: 'white',
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
+    // backgroundColor: 'white',
+    width: 38,
+    height: 38,
+    borderRadius: 25,
+    // alignItems: 'center',
+    // justifyContent: 'center',
     padding: 0,
+    marginTop: 10,
   },
-  textBuitton: {
-    textAlign: 'center',
-    fontSize: 28,
-    color: 'black',
-    width: '100%',
-    height: '100%',
+  textButton: {
+    // textAlign: 'center',
+    // fontSize: 28,
+    // color: 'black',
+    // width: '100%',
+    // height: '100%',
     margin: 0,
-    transform: [{translateY: -5}],
     // fontWeight: 'bold'
   },
 });
