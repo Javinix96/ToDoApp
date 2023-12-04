@@ -79,7 +79,16 @@ export const BodyComponent = anims => {
   });
 
   return (
-    <>
+    <View
+      style={{
+        // backgroundColor: 'red',
+        width: '100%',
+        position: 'absolute',
+        top: 350,
+        height: '70%',
+        zIndex: 1,
+        // flex: 1,
+      }}>
       {buttonT ? (
         <Animated.View
           {...panResponder.panHandlers}
@@ -88,37 +97,39 @@ export const BodyComponent = anims => {
             transform: [{translateY: translateY}],
           }}></Animated.View>
       ) : (
-        <Animated.View
-          {...panResponder.panHandlers}
+        <View
+          // {...panResponder.panHandlers}
           style={{
             ...TaskStyles.Container,
             // transform: [{translateY: pan.y}],
           }}>
           <ListComponent />
-        </Animated.View>
+        </View>
       )}
-    </>
+    </View>
   );
 };
 
 const TaskStyles = StyleSheet.create({
   Container: {
     backgroundColor: 'white',
-    width: '100',
-    height: '65%',
+    width: '100%',
+    height: '100%',
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
-    position: 'absolute',
+    position: 'relative',
     right: 0,
-    top: 300,
+    top: 10,
     left: 0,
-    zIndex: 2,
+    zIndex: 0,
+    overflow: 'hidden',
+    padding: 10,
   },
   Touch: {
     width: '100%',
     height: '50%',
     position: 'relative',
-    zIndex: 1,
+    // zIndex: 1,
     backgroundColor: 'red',
   },
 });

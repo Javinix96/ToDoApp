@@ -84,7 +84,6 @@ export const MainPage = () => {
         onPress={() => {
           Keyboard.dismiss();
           setFocus(false);
-          console.log(focus);
         }}
         style={styles.Main}>
         <View style={styles.Main}>
@@ -93,9 +92,9 @@ export const MainPage = () => {
             <Text style={styles.Title}>TO DO LIST</Text>
           </View>
           <TodoComponent anims={anims} />
-          <BodyComponent anims={anims} />
         </View>
       </TouchableWithoutFeedback>
+      <BodyComponent anims={anims} />
     </KeyboardAvoidingView>
   );
 };
@@ -105,8 +104,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#001B54',
     height: '100%',
     width: '100%',
-    display: 'flex',
+    position: 'absolute',
+    top: 0,
     overflow: 'visible',
+    zIndex: 1,
   },
   Title: {
     color: 'white',
@@ -123,6 +124,8 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     width: '100%',
+    height: '100%',
+    // flex: 1,
     alignItems: 'center',
   },
 });

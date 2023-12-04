@@ -29,7 +29,7 @@ const getDateToNumber = (index = 0) => {
   );
 };
 
-const getDateToNumberP = date => {
+export const getDateToNumberP = date => {
   return Number(
     date.getFullYear().toString() +
       (date.getMonth() + 1 < 10

@@ -74,8 +74,10 @@ const todoStyles = StyleSheet.create({
   todoCon: {
     // backgroundColor: 'red',
     width: '100%',
-    height: 10,
-    zIndex: -1,
+    height: 100,
+    position: 'absolute',
+    top: 200,
+    zIndex: 20,
     alignItems: 'center',
   },
   todoInput: {
@@ -87,6 +89,7 @@ const todoStyles = StyleSheet.create({
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'row',
+    zIndex: 3,
   },
   inputS: {
     padding: 0,
