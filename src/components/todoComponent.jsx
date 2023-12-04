@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 export const TodoComponent = ({anims}) => {
   const [text, setText] = useState('');
+
   const {
     height,
     moveDown,
@@ -20,17 +21,31 @@ export const TodoComponent = ({anims}) => {
     translateXTitle,
     showButton,
     setShowButton,
+    focus,
+    setFocus,
   } = anims;
 
   return (
     <View style={{...todoStyles.todoCon, height: height}}>
-      <View style={todoStyles.todoInput}>
+      <View
+        style={{
+          ...todoStyles.todoInput,
+          height: focus === true ? '300%' : '100%',
+        }}>
         <TextInput
-          style={todoStyles.inputS}
-          editableds
+          style={{
+            ...todoStyles.inputS,
+            backgroundColor: !focus ? '#001B54' : '#201B64',
+          }}
           multiline
-          numberOfLines={1}
+          numberOfLines={10}
+          enablesReturnKeyAutomatically
           value={text}
+          textAlignVertical="top"
+          onPressIn={e => {
+            setFocus(true);
+            console.log(focus);
+          }}
           onChangeText={val => setText(val)}
         />
 
@@ -61,10 +76,7 @@ const todoStyles = StyleSheet.create({
     width: '100%',
     height: 10,
     zIndex: -1,
-    // justifyContent: '',
     alignItems: 'center',
-    // display: 'flex',
-    // flexDirection: 'column',
   },
   todoInput: {
     // backgroundColor: 'black',
@@ -79,14 +91,16 @@ const todoStyles = StyleSheet.create({
   inputS: {
     padding: 0,
     width: '70%',
-    height: 40,
+    height: '80%',
     borderBottomColor: '#83A2E2',
     borderBottomWidth: 1,
     color: 'white',
     margin: 0,
     fontSize: 16,
     textDecorationLine: 'none',
-    // backgroundColor: 'orange'
+    backgroundColor: '#101A55',
+    borderRadius: 10,
+    padding: 5,
   },
   button: {
     // backgroundColor: 'white',
@@ -96,7 +110,7 @@ const todoStyles = StyleSheet.create({
     // alignItems: 'center',
     // justifyContent: 'center',
     padding: 0,
-    marginTop: 10,
+    marginTop: 0,
   },
   textButton: {
     // textAlign: 'center',

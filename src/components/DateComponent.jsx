@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import {
   Animated,
+  NativeModules,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
+  Platform,
 } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -20,6 +22,43 @@ export const DateComponent = ({translateXHour, translateX, translateXT}) => {
 
   const updateTime = () => {
     setTime(new Date());
+  };
+
+  const {GetBateryModule} = NativeModules;
+
+  const getDate = () => {
+    if (Platform.OS === 'ios') return;
+
+    GetBateryModule.DatePicker(
+      parseInt(date.getFullYear()),
+      parseInt(date.getMonth()),
+      parseInt(date.getUTCDate()),
+      date => {
+        const dateJson = JSON.parse(date);
+        const date2 = new Date(dateJson.year, dateJson.month - 1, dateJson.day);
+        setDate(date2);
+      },
+    );
+  };
+
+  const getTime = () => {
+    if (Platform.OS === 'ios') return;
+
+    GetBateryModule.TimePicker(
+      parseInt(time.getHours()),
+      parseInt(time.getMinutes()),
+      time => {
+        const timeJson = JSON.parse(time);
+        const time2 = new Date(
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDay(),
+          timeJson.hour,
+          timeJson.minutes,
+        );
+        setTime(time2);
+      },
+    );
   };
 
   return (
@@ -37,12 +76,10 @@ export const DateComponent = ({translateXHour, translateX, translateXT}) => {
           style={todoStyles.inputS}
           editableds
           multiline
-          placeholder="thu, october 11, 2021"
           numberOfLines={1}
           placeholderTextColor={'white'}
           value={date.toDateString()}
-          //   value={text}
-          //   onChangeText={val => setText(val)}
+          onPressIn={evt => getDate()}
         />
         <TouchableOpacity style={todoStyles.button} onPress={updateDate}>
           <Text style={todoStyles.textBuitton}>
@@ -60,10 +97,13 @@ export const DateComponent = ({translateXHour, translateX, translateXT}) => {
           style={todoStyles.inputS}
           editableds
           multiline
-          placeholder="12:00 PM"
           numberOfLines={1}
           placeholderTextColor={'white'}
-          value={time.toLocaleTimeString().substring(0, 4)}
+          value={
+            time.toTimeString().split(' ')[0] +
+            (time.getHours < 12 ? ' am' : ' pm')
+          }
+          onPressIn={evt => getTime()}
           //   value={text}
           //   onChangeText={val => setText(val)}
         />

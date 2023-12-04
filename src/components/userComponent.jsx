@@ -1,19 +1,19 @@
-import React from 'react'
-import { View,Text, StyleSheet, Image } from 'react-native'
+import React from 'react';
+import {View, Text, StyleSheet, Image} from 'react-native';
 
 export const UserComponent = () => {
   return (
     <View style={userStyles.Container}>
-
-      <Text style={userStyles.userText}>{"javinix".toUpperCase().slice(0,7)}</Text>
-
+      <Text style={userStyles.userText}>
+        {'javinix'.toUpperCase().slice(0, 7)}
+      </Text>
       <Image
         source={{uri: 'https://reactjs.org/logo-og.png'}}
         style={userStyles.userImage}
-        />
-      </View>
+      />
+    </View>
   );
-}
+};
 
 const userStyles = StyleSheet.create({
   Container: {

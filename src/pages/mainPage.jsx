@@ -23,6 +23,7 @@ export const MainPage = () => {
   const translateX = useRef(new Animated.Value(450)).current;
   const translateXTitle = useRef(new Animated.Value(450)).current;
   const translateXHour = useRef(new Animated.Value(450)).current;
+  const [focus, setFocus] = useState(false);
 
   const moveDown = () => {
     setButtonT(true);
@@ -66,6 +67,8 @@ export const MainPage = () => {
     setButtonT,
     showButton,
     setShowButton,
+    setFocus,
+    focus,
   };
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState(new Date());
@@ -77,7 +80,13 @@ export const MainPage = () => {
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.titleContainer}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={styles.Main}>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          Keyboard.dismiss();
+          setFocus(false);
+          console.log(focus);
+        }}
+        style={styles.Main}>
         <View style={styles.Main}>
           <UserComponent />
           <View style={styles.titleContainer}>
@@ -109,7 +118,8 @@ const styles = StyleSheet.create({
     fontSize: 65,
     margin: 0,
     lineHeight: 60,
-    paddingTop: 20,
+    paddingTop: 40,
+    marginRight: 20,
   },
   titleContainer: {
     width: '100%',
