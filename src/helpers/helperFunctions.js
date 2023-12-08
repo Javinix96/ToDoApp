@@ -39,3 +39,11 @@ export const getDateToNumberP = date => {
       (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()).toString(),
   );
 };
+
+export const dateUTC = date => {
+  return date.getUTCDate() + '/' + date.getMonth() + '/' + date.getFullYear();
+};
+
+export const getTime = date => {
+  return date.getHours() + ':' + date.getMinutes();
+};
